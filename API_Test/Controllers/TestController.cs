@@ -38,6 +38,37 @@ namespace API_Test.Controllers
                 diemTb = (math * 1 + eng * 1 + his * 1) / (1 + 1 + 1);
                 return $"Điểm trung bình của bạn là {diemTb.ToString("#.##")}";
             }
-        } 
+        }
+
+        [HttpPost("find-the-pivot-integer")]
+        public string FindThePivot(int n)
+        {
+            if (n == 1)
+            {
+                return $"Phần tử pivot là: {n}";
+            }
+            int leftValue = 1;
+            int rightValue = n;
+            int sumLeft = leftValue;
+            int sumRight = rightValue;
+            while (leftValue < rightValue)
+            {
+                if (sumLeft < sumRight)
+                {
+                    leftValue++;
+                    sumLeft += leftValue;
+                }
+                else
+                {
+                    rightValue--;
+                    sumRight += rightValue;
+                }
+                if (sumLeft == sumRight && leftValue + 1 == rightValue - 1)
+                {
+                    return $"Phần tử pivot là: {leftValue + 1}";
+                }
+            }
+            return "Phần tử pivot là: -1";
+        }
     }
 }
