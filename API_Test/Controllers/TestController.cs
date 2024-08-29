@@ -70,5 +70,22 @@ namespace API_Test.Controllers
             }
             return "Phần tử pivot là: -1";
         }
+
+        [HttpPost ("palindrome-number")]
+        public string PalindromeNumber(int n)
+        {
+            string strN = Convert.ToString(n);
+            char[] charN = strN.ToCharArray();
+            Array.Reverse(charN);
+            string soDaoNguoc = new string(charN);
+            for (int i = 0; i < strN.Length / 2; i++)
+            {
+                if (strN[i] != strN[strN.Length - i - 1])
+                {
+                    return $"Đọc lại thì ko phải số palindrome rồi vì {n} đọc ngược lại là: {soDaoNguoc}";
+                }
+            }
+            return $"{n} là số palindrome vì đọc ngược hay xuôi thì vẫn ra {n}";
+        }
     }
 }
