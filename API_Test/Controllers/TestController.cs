@@ -87,5 +87,42 @@ namespace API_Test.Controllers
             }
             return $"{n} là số palindrome vì đọc ngược hay xuôi thì vẫn ra {n}";
         }
+
+        [HttpPost("roman-to-integer")]
+        public string RoManToInt(string s)
+        {
+            if (s.Length <= 1 || s.Length >= 15)
+            {
+                return "S không được quá dài hoặc quá ngắn!";
+            }
+            foreach (char c in s)
+            {
+                if (c != 'I' && c != 'V' && c != 'X' && c != 'L' && c != 'C' && c != 'D' && c != 'M')
+                {
+                    return "Chuỗi chứa ký tự không hợp lệ!";
+                }
+            }
+            Dictionary<char, int> roManValues = new Dictionary<char, int>()
+            {
+                {'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}
+            };
+            int result = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (i < s.Length - 1 && roManValues[s[i]] < roManValues[s[i + 1]])
+                {
+                    result -= roManValues[s[i]];
+                }
+                else
+                {
+                    result += roManValues[s[i]];
+                }
+            }
+            if (result < 1 || result > 3999)
+            {
+                return "Vui lòng nhập số từ 1 - 3999!";
+            }
+            return $"Giá trị của số la mã là: {result}";
+        }
     }
 }
