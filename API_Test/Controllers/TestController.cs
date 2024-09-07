@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 
 namespace API_Test.Controllers
 {
@@ -6,11 +7,6 @@ namespace API_Test.Controllers
     [ApiController]
     public class TestController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
         [HttpPost("diem-tb")]
         public string DiemTrungBinh(double math, double eng, double his, int major)
@@ -123,6 +119,60 @@ namespace API_Test.Controllers
                 return "Vui lòng nhập số từ 1 - 3999!";
             }
             return $"Giá trị của số la mã là: {result}";
+        }
+        //kho vcl del hieu
+        [HttpPost("majority-element")]
+        public string MajorityElement(int[] nums)
+        {
+            int candidate = 0;
+            int count = 0;
+
+            foreach (int num in nums)
+            {
+                if (count == 0)
+                {
+                    candidate = num;
+                    count = 1;
+                }
+                else if (candidate == num)
+                {
+                    count++;
+                }
+                else
+                {
+                    count--;
+                }
+            }
+            return $"Phần tử xuất hiện nhiều nhất trong mảng là: {candidate}";
+        }
+
+        [HttpPost("longest-common-prefix")]
+        public string LongestCommonPrefix(string[] strs)
+        {
+            if (strs == null || strs.Length == 0)
+            {
+                return "";
+            }
+            var shortest = strs[0];
+            foreach (var str in strs)
+            {
+                if (str.Length < shortest.Length)
+                {
+                    shortest = str;
+                }
+            }
+            for (int i = 0; i < shortest.Length; i++) // Sửa strs.Length thành shortest.Length
+            {
+                char currentChar = shortest[i];
+                foreach (var str in strs)
+                {
+                    if (i >= str.Length || str[i] != currentChar) // Thêm kiểm tra i >= str.Length
+                    {
+                        return shortest.Substring(0, i);
+                    }
+                }
+            }
+            return shortest;
         }
     }
 }
