@@ -174,5 +174,46 @@ namespace API_Test.Controllers
             }
             return shortest;
         }
+
+        [HttpPost("valid-parentheses")]
+        public bool IsValid(string s)
+        {
+            while (s.Contains("()") || s.Contains("[]") || s.Contains("{}"))
+            {
+                s = s.Replace("()", "").Replace("[]", "").Replace("{}", "");
+            }
+            if (s.Length == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        [HttpPost("search-insert-position")]
+        public string SearchInsert(int[] nums, int target)
+        {
+            var num = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (target == nums[i])
+                {
+                    num = i;
+                    break;
+                }
+                else if (target < nums[i])
+                {
+                    num = i;
+                    break;
+                }
+                else if (i == nums.Length - 1)
+                {
+                    num = nums.Length;
+                }
+            }
+            return $"Vị trí taget trong mảng là: {num}";
+        }
     }
 }
