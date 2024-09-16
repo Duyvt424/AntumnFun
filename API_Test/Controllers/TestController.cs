@@ -215,5 +215,40 @@ namespace API_Test.Controllers
             }
             return $"Vị trí taget trong mảng là: {num}";
         }
+
+        [HttpPost("length-of-last-word")]
+        public string LengthOfLastWord(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                return "Chuỗi bạn nhập vào không đúng!";
+            }
+
+            s = s.Trim();
+            int length = 0;
+            for (int i = s.Length - 1; i >= 0 ; i--)
+            {
+                if (s[i] == ' ')
+                {
+                    break;
+                }
+                length++;
+            }
+            return $"Chiều dài của từ cuối trong đoạn là: {length}";
+        }
+
+        [HttpPost("sqrtx")]
+        public string MySqrt(long x)
+        {
+            var number = x;
+            var y = 1;
+            var epsilon = 0.1;
+            while (number - y > epsilon)
+            {
+                number = (number + y) / 2;
+                y = Convert.ToInt32(x / number);
+            }
+            return $"căn bậc hai của {x} là: {number}";
+        }
     }
 }
