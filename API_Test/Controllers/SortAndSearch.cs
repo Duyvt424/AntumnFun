@@ -26,5 +26,23 @@ namespace API_Test.Controllers
             }
             return "Mảng sau khi đã sắp xếp là: " + string.Join(", ", arr);
         }
+
+        [HttpPost("bubble-sort")]
+        public string BubbleSort(int[] arr)
+        {
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                for (int j = i + 1; j < arr.Length; j++)
+                {
+                    if (arr[i] > arr[j])
+                    {
+                        int tmp = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = tmp;
+                    }
+                }
+            }
+            return "Mảng sau khi đã sắp xếp là: " + string.Join(", ", arr);
+        }
     }
 }
