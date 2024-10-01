@@ -10,13 +10,10 @@ namespace API_Test.Controllers
         [HttpPost("insertion-sort")]
         public string InsertionSort(int[] arr)
         {
-            int n = arr.Length; // gán n = chiều dài mảng
-            int key = 0; 
-            int j = 0;
-            for (int i = 1; i < n; i++) // lặp từ vtri i = 1
+            for (int i = 1; i < arr.Length; i++) // lặp từ vtri i = 1
             {
-                key = arr[i]; // gán key = gia trị tại arr[i]
-                j = i - 1; // Khởi tạo j bằng i - 1, đây là vị trí trước i trong mảng
+                int key = arr[i]; // gán key = gia trị tại arr[i]
+                int j = i - 1; // Khởi tạo j bằng i - 1, đây là vị trí trước i trong mảng
                 while (j >= 0 && arr[j] > key) // Vòng lặp while kiểm tra và di chuyển phần tử lớn hơn key về phía sau để tạo chỗ trống cho key
                 {
                     arr[j + 1] = arr[j]; //Di chuyển phần tử lớn hơn key về phía sau.
@@ -24,7 +21,7 @@ namespace API_Test.Controllers
                 }
                 arr[j + 1] = key; //Chèn key vào vị trí đúng trong mảng đã sắp xếp.
             }
-            return "Mảng sau khi đã sắp xếp là: " + string.Join(", ", arr);
+            return "Mảng sau khi đã sắp xếp chèn là: " + string.Join(", ", arr);
         }
 
         [HttpPost("bubble-sort")]
@@ -42,7 +39,42 @@ namespace API_Test.Controllers
                     }
                 }
             }
-            return "Mảng sau khi đã sắp xếp là: " + string.Join(", ", arr);
+            return "Mảng sau khi đã sắp xếp nổi bọt là: " + string.Join(", ", arr);
+        }
+
+        [HttpPost("selection-sort")]
+        public string SelectionSort(int[] arr)
+        {
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                // Tìm vị trí giá trị nhỏ nhất trong đoạn từ i..n
+                int minPosition = i;
+                for (int j = i + 1; j < arr.Length; j++)
+                {
+                    if (arr[minPosition] > arr[j])
+                    {
+                        minPosition = j;
+                    }
+                }
+                int tmp = arr[i];
+                arr[i] = arr[minPosition];
+                arr[minPosition] = tmp;
+            }
+            return "Mảng sau khi đã sắp xếp chọn là: " + string.Join(", ", arr);
+        }
+
+        [HttpPost("linear-search")]
+        public string LinearSearch(int[] arr, int target)
+        {
+            int final = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (target == arr[i])
+                {
+                    final = i;
+                }
+            }
+            return $"Index sau khi tìm kiếm tuyến tính là: {final}";
         }
     }
 }
